@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-   <!--
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
 
-      Licensed to the Apache Software Foundation (ASF) under one or more
-      contributor license agreements. See the NOTICE file distributed with this
-      work for additional information regarding copyright ownership. The ASF
-      licenses this file to You under the Apache License, Version 2.0 (the
-      "License"); you may not use this file except in compliance with the
-      License. You may obtain a copy of the License at
+  http://www.apache.org/licenses/LICENSE-2.0
 
-      http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable
-      law or agreed to in writing, software distributed under the License is
-      distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-      KIND, either express or implied. See the License for the specific language
-      governing permissions and limitations under the License.
-   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-   <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-parent</artifactId>
+        <version>2.8-SNAPSHOT</version>
+        <relativePath>../../parent</relativePath>
+    </parent>
 
    <artifactId>camel-twitter</artifactId>
    <packaging>bundle</packaging>
-
-   <parent>
-      <groupId>org.apache.camel</groupId>
-      <artifactId>camel-parent</artifactId>
-      <version>2.0.0-SNAPSHOT</version>
-   </parent>
-
    <name>Camel :: Twitter</name>
+   <description>Camel Twitter support</description>
 
    <properties>
-      <twitter4j.version>2.0.10-SNAPSHOT</twitter4j.version>
+      <twitter4j.version>2.2.2</twitter4j.version>
       <camel.osgi.export.pkg>org.apache.camel.component.twitter.*</camel.osgi.export.pkg>
    </properties>
 
@@ -64,15 +64,10 @@
          <artifactId>commons-logging</artifactId>
       </dependency>
       <dependency>
-         <groupId>net.homeip.yusuke</groupId>
+         <groupId>org.twitter4j</groupId>
          <artifactId>twitter4j</artifactId>
          <version>${twitter4j.version}</version>
       </dependency>
-      <!--
-         <dependency> <groupId>org.apache.servicemix.bundles</groupId>
-         <artifactId>org.apache.servicemix.bundles.twitter4j</artifactId>
-         <version>2.0.9_1-SNAPSHOT</version> </dependency>
-      -->
       <!-- to allow Spring annotations (jmx) to be tested -->
       <dependency>
          <groupId>org.springframework</groupId>
