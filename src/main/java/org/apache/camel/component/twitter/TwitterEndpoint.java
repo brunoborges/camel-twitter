@@ -27,6 +27,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import twitter4j.Twitter;
+import twitter4j.TwitterFactory;
+import twitter4j.auth.AuthorizationFactory;
+import twitter4j.conf.Configuration;
+import twitter4j.conf.ConfigurationBuilder;
 
 /**
  * Represents a direct endpoint that synchronously invokes the consumers of the
@@ -194,10 +198,11 @@ public class TwitterEndpoint extends DefaultPollingEndpoint {
 
 		if (userPass.isEmpty() == false) {
 			LOG.info("Instantiating Twitter with credentials");
-			twitter = new Twitter(getUser(), getPass());
+			Configuration config = new ConfigurationBuilder().setUser(getUser()).setPassword(getPass()).build();
+			twitter = new TwitterFactory().getInstance(AuthorizationFactory.getInstance(config));
 		} else {
 			LOG.info("Instantiating Twitter with NO credentials");
-			twitter = new Twitter();
+			twitter = new TwitterFactory().getInstance();
 		}
 	}
 

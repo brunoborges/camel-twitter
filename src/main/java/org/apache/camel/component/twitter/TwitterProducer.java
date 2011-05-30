@@ -51,7 +51,7 @@ public class TwitterProducer extends DefaultProducer implements Processor {
 			status.substring(0, 160);
 		}
 
-		if (endpoint.getTwitter().getUserId() != null) {
+		if (endpoint.getTwitter().getAuthorization().isEnabled()) {
 			endpoint.getTwitter().updateStatus(status);
 		} else {
 			LOG.error("Trying to update a non-authenticated Twitter user!");

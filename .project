@@ -1,6 +1,6 @@
 <projectDescription>
   <name>camel-twitter</name>
-  <comment>Camel Parent POM</comment>
+  <comment>Camel Twitter support. NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
   <projects/>
   <buildSpec>
     <buildCommand>
@@ -9,9 +9,13 @@
     <buildCommand>
       <name>com.atlassw.tools.eclipse.checkstyle.CheckstyleBuilder</name>
     </buildCommand>
+    <buildCommand>
+      <name>net.sf.eclipsecs.core.CheckstyleBuilder</name>
+    </buildCommand>
   </buildSpec>
   <natures>
     <nature>org.eclipse.jdt.core.javanature</nature>
     <nature>com.atlassw.tools.eclipse.checkstyle.CheckstyleNature</nature>
+    <nature>net.sf.eclipsecs.core.CheckstyleNature</nature>
   </natures>
 </projectDescription>

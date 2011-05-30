@@ -19,13 +19,12 @@ public class TwitterPublicConsumer extends TwitterConsumer {
 		List<twitter4j.Status> statusList = null;
 
 		TwitterEndpoint te = (TwitterEndpoint) getEndpoint();
-		if (getLastStatusUpdateID() == 0) {
-			statusList = te.getTwitter().getPublicTimeline();
-		} else {
-			statusList = te.getTwitter().getPublicTimeline(
-					getLastStatusUpdateID());
-		}
+		statusList = te.getTwitter().getPublicTimeline();
 
+		// FIXME should search for tweets since last tweet
+		// previous code could do this, but now API of twitter4j has changed
+		// must think about another way
+		
 		List<Status> statusCamelTweet = new ArrayList<Status>(statusList.size());
 		for (Iterator<twitter4j.Status> i = statusList.iterator(); i.hasNext();) {
 			statusCamelTweet.add(convertStatus(i.next()));

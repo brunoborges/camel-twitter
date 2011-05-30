@@ -7,6 +7,10 @@ import twitter4j.Paging;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.auth.AuthorizationFactory;
+import twitter4j.conf.Configuration;
+import twitter4j.conf.ConfigurationBuilder;
 
 public class Twitter4JTest extends TestCase {
 
@@ -14,7 +18,8 @@ public class Twitter4JTest extends TestCase {
 
 	@Override
 	protected void setUp() throws Exception {
-		t = new Twitter("cameltweet", "ctapache!");
+		Configuration config = new ConfigurationBuilder().setUser("cameltweet").setPassword("ctapache!").build();
+		t = new TwitterFactory().getInstance(AuthorizationFactory.getInstance(config));
 	}
 
 	@Override

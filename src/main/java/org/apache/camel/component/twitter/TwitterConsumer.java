@@ -28,15 +28,16 @@ abstract class TwitterConsumer extends ScheduledPollConsumer {
 		setTimeUnit(TimeUnit.SECONDS);
 	}
 
-	protected void poll() throws Exception {
+	protected int poll() throws Exception {
 		Iterator<Status> statusIterator = requestStatus();
 
 		Status tStatus = null;
+		int total = 0;
 		while (statusIterator.hasNext()) {
 			tStatus = statusIterator.next();
 
 			if (tStatus.getId() <= lastStatusUpdateID) {
-				return;
+				return 0;
 			}
 
 			Exchange e = getEndpoint().createExchange();
@@ -49,6 +50,7 @@ abstract class TwitterConsumer extends ScheduledPollConsumer {
 
 			getProcessor().process(e);
 
+			total++;
 			// make sure it ignores updates that were already polled
 			long newerStatusID = tStatus.getId();
 			if (newerStatusID > lastStatusUpdateID) {
@@ -56,6 +58,7 @@ abstract class TwitterConsumer extends ScheduledPollConsumer {
 			}
 		}
 
+		return total;
 	}
 
 	protected final Status convertStatus(twitter4j.Status s) {
