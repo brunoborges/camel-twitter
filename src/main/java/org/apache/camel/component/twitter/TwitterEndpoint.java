@@ -22,6 +22,12 @@ import java.util.Set;
 import org.apache.camel.Consumer;
 import org.apache.camel.Processor;
 import org.apache.camel.Producer;
+import org.apache.camel.component.twitter.consumer.TwitterConsumer;
+import org.apache.camel.component.twitter.consumer.search.TwitterSearchConsumer;
+import org.apache.camel.component.twitter.consumer.timeline.TwitterFriendsConsumer;
+import org.apache.camel.component.twitter.consumer.timeline.TwitterPublicConsumer;
+import org.apache.camel.component.twitter.consumer.timeline.TwitterUserConsumer;
+import org.apache.camel.component.twitter.producer.TwitterProducer;
 import org.apache.camel.impl.DefaultPollingEndpoint;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -70,7 +76,7 @@ public class TwitterEndpoint extends DefaultPollingEndpoint {
 		return new TwitterProducer(this);
 	}
 
-	protected Twitter getTwitter() {
+	public Twitter getTwitter() {
 		return twitter;
 	}
 

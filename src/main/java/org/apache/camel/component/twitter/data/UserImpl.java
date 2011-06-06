@@ -1,10 +1,10 @@
-package org.apache.camel.component.twitter;
+package org.apache.camel.component.twitter.data;
 
 import java.net.URL;
 
-class UserImpl implements User {
+public class UserImpl implements User {
 
-	protected UserImpl(twitter4j.User user) {
+	public UserImpl(twitter4j.User user) {
 		this.name = user.getName();
 		this.screenname = user.getScreenName();
 		this.profileImageUrl = user.getProfileImageURL();
