@@ -1,4 +1,4 @@
-package org.apache.camel.component.twitter;
+package org.apache.camel.component.twitter.data;
 
 import java.net.URL;
 

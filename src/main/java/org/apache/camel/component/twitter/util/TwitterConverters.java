@@ -14,9 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.component.twitter;
+package org.apache.camel.component.twitter.util;
 
 import org.apache.camel.Converter;
+import org.apache.camel.component.twitter.data.Status;
 
 /**
  * converters for twitter

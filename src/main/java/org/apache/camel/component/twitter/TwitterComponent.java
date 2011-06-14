@@ -28,9 +28,8 @@ import org.apache.camel.impl.DefaultComponent;
  */
 public class TwitterComponent extends DefaultComponent {
 
-	@SuppressWarnings("unchecked")
 	protected TwitterEndpoint createEndpoint(String uri, String remaining,
-			Map parameters) throws Exception {
+			Map<String, Object> parameters) throws Exception {
 
 		TwitterEndpoint endpoint = new TwitterEndpoint(uri, this);
 		setProperties(endpoint, parameters);

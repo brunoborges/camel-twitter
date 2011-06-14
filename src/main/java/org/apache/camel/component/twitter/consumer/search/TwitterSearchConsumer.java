@@ -1,4 +1,4 @@
-package org.apache.camel.component.twitter;
+package org.apache.camel.component.twitter.consumer.search;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -6,8 +6,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.camel.Processor;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.camel.component.twitter.TwitterEndpoint;
+import org.apache.camel.component.twitter.consumer.TwitterConsumer;
+import org.apache.camel.component.twitter.data.Status;
+import org.apache.camel.component.twitter.data.StatusImpl;
+import org.apache.camel.component.twitter.data.User;
 
 import twitter4j.Query;
 import twitter4j.QueryResult;

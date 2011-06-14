@@ -1,18 +1,23 @@
 /**
  * 
  */
-package org.apache.camel.component.twitter;
+package org.apache.camel.component.twitter.consumer;
 
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
+import org.apache.camel.component.twitter.TwitterEndpoint;
+import org.apache.camel.component.twitter.data.Status;
+import org.apache.camel.component.twitter.data.StatusImpl;
+import org.apache.camel.component.twitter.data.User;
+import org.apache.camel.component.twitter.data.UserImpl;
 import org.apache.camel.impl.ScheduledPollConsumer;
 
 import twitter4j.TwitterException;
 
-abstract class TwitterConsumer extends ScheduledPollConsumer {
+public abstract class TwitterConsumer extends ScheduledPollConsumer {
 
 	private long lastStatusUpdateID = 1;
 

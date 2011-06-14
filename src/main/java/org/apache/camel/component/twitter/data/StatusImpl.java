@@ -1,8 +1,8 @@
-package org.apache.camel.component.twitter;
+package org.apache.camel.component.twitter.data;
 
 import java.util.Date;
 
-class StatusImpl implements Status {
+public class StatusImpl implements Status {
 
 	private Date date;
 	private User user;
@@ -10,7 +10,7 @@ class StatusImpl implements Status {
 	private String text;
 	private boolean truncated;
 
-	protected StatusImpl(twitter4j.Status s, User user) {
+	public StatusImpl(twitter4j.Status s, User user) {
 		this.user = user;
 		this.id = s.getId();
 		this.text = s.getText();
@@ -18,7 +18,7 @@ class StatusImpl implements Status {
 		this.truncated = s.isTruncated();
 	}
 
-	protected StatusImpl(User user, long statusId, String text, Date date, boolean truncated) {
+	public StatusImpl(User user, long statusId, String text, Date date, boolean truncated) {
 		this.user = user;
 		this.id = statusId;
 		this.text = text;
