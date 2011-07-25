@@ -12,16 +12,16 @@ import org.apache.camel.component.twitter.data.Status;
 import twitter4j.Paging;
 import twitter4j.TwitterException;
 
-public class TwitterFriendsConsumer extends TwitterConsumer {
+public class TwitterHomeConsumer extends TwitterConsumer {
 
-	public TwitterFriendsConsumer(TwitterEndpoint endpoint, Processor processor) {
+	public TwitterHomeConsumer(TwitterEndpoint endpoint, Processor processor) {
 		super(endpoint, processor);
 	}
 
 	@Override
 	protected Iterator<Status> requestStatus() throws TwitterException {
 		TwitterEndpoint te = (TwitterEndpoint) getEndpoint();
-		List<twitter4j.Status> statusList = te.getTwitter().getFriendsTimeline(new Paging(getLastStatusUpdateID()));
+		List<twitter4j.Status> statusList = te.getTwitter().getHomeTimeline(new Paging(getLastStatusUpdateID()));
 
 		List<Status> statusCamelTweet = new ArrayList<Status>(statusList.size());
 		for (Iterator<twitter4j.Status> i = statusList.iterator(); i.hasNext();) {

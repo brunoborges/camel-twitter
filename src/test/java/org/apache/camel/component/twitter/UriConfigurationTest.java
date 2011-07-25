@@ -26,40 +26,55 @@ import org.junit.Test;
  * @version $Revision: 786399 $
  */
 public class UriConfigurationTest extends Assert {
-    protected CamelContext context = new DefaultCamelContext();
+    private CamelContext context = new DefaultCamelContext();
+    
+    private CamelTwitterTestSupport support = new CamelTwitterTestSupport();
 
+//    @Test
+//    public void testFollowConfiguration() throws Exception {
+//        Endpoint endpoint = context.getEndpoint("twitter:tweets?user=lhein&pass=myPass&type=FRIENDS&follow=davsclaus");
+//        assertTrue("Endpoint not a TwitterEndpoint: " + endpoint, endpoint instanceof TwitterEndpoint);
+//        TwitterEndpoint twitterEndpoint = (TwitterEndpoint) endpoint;
+//
+////        Assert.assertEquals(TimelineType.FRIENDS, twitterEndpoint.getType());
+//        Assert.assertEquals("lhein", twitterEndpoint.getUser());
+//        Assert.assertEquals("myPass", twitterEndpoint.getPass());
+//        Assert.assertEquals("davsclaus", twitterEndpoint.getFollow());
+//    }
+//
+//    @Test
+//    public void testWithoutFollowConfiguration() throws Exception {
+//        Endpoint endpoint = context.getEndpoint("twitter:tweets?user=lhein&pass=myPass&type=ALL");
+//        assertTrue("Endpoint not a TwitterEndpoint: " + endpoint, endpoint instanceof TwitterEndpoint);
+//        TwitterEndpoint twitterEndpoint = (TwitterEndpoint) endpoint;
+//
+////        Assert.assertEquals(TimelineType.ALL, twitterEndpoint.getType());
+//        Assert.assertEquals("lhein", twitterEndpoint.getUser());
+//        Assert.assertEquals("myPass", twitterEndpoint.getPass());
+//    }
+//
+//    @Test
+//    public void testAnonymousWithoutFollowConfiguration() throws Exception {
+//        Endpoint endpoint = context.getEndpoint("twitter:tweets?type=ALL");
+//        assertTrue("Endpoint not a TwitterEndpoint: " + endpoint, endpoint instanceof TwitterEndpoint);
+//        TwitterEndpoint twitterEndpoint = (TwitterEndpoint) endpoint;
+//
+////        Assert.assertEquals(TimelineType.ALL, twitterEndpoint.getType());
+//        Assert.assertNull(twitterEndpoint.getUser());
+//        Assert.assertNull(twitterEndpoint.getPass());
+//        Assert.assertNull(twitterEndpoint.getFollow());
+//    }
+    
     @Test
-    public void testFollowConfiguration() throws Exception {
-        Endpoint endpoint = context.getEndpoint("twitter:tweets?user=lhein&pass=myPass&type=FRIENDS&follow=davsclaus");
+    public void testBasicAuthentication() throws Exception {
+        Endpoint endpoint = context.getEndpoint("twitter:todo/todo?"
+        		+ support.getUriTokens());
         assertTrue("Endpoint not a TwitterEndpoint: " + endpoint, endpoint instanceof TwitterEndpoint);
         TwitterEndpoint twitterEndpoint = (TwitterEndpoint) endpoint;
 
-        Assert.assertEquals(TimelineType.FRIENDS, twitterEndpoint.getType());
-        Assert.assertEquals("lhein", twitterEndpoint.getUser());
-        Assert.assertEquals("myPass", twitterEndpoint.getPass());
-        Assert.assertEquals("davsclaus", twitterEndpoint.getFollow());
-    }
-
-    @Test
-    public void testWithoutFollowConfiguration() throws Exception {
-        Endpoint endpoint = context.getEndpoint("twitter:tweets?user=lhein&pass=myPass&type=ALL");
-        assertTrue("Endpoint not a TwitterEndpoint: " + endpoint, endpoint instanceof TwitterEndpoint);
-        TwitterEndpoint twitterEndpoint = (TwitterEndpoint) endpoint;
-
-        Assert.assertEquals(TimelineType.ALL, twitterEndpoint.getType());
-        Assert.assertEquals("lhein", twitterEndpoint.getUser());
-        Assert.assertEquals("myPass", twitterEndpoint.getPass());
-    }
-
-    @Test
-    public void testAnonymousWithoutFollowConfiguration() throws Exception {
-        Endpoint endpoint = context.getEndpoint("twitter:tweets?type=ALL");
-        assertTrue("Endpoint not a TwitterEndpoint: " + endpoint, endpoint instanceof TwitterEndpoint);
-        TwitterEndpoint twitterEndpoint = (TwitterEndpoint) endpoint;
-
-        Assert.assertEquals(TimelineType.ALL, twitterEndpoint.getType());
-        Assert.assertNull(twitterEndpoint.getUser());
-        Assert.assertNull(twitterEndpoint.getPass());
-        Assert.assertNull(twitterEndpoint.getFollow());
+        Assert.assertTrue(!twitterEndpoint.getConsumerKey().isEmpty());
+        Assert.assertTrue(!twitterEndpoint.getConsumerSecret().isEmpty());
+        Assert.assertTrue(!twitterEndpoint.getAccessToken().isEmpty());
+        Assert.assertTrue(!twitterEndpoint.getAccessTokenSecret().isEmpty());
     }
 }

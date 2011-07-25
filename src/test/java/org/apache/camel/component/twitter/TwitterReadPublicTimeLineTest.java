@@ -30,6 +30,8 @@ import org.junit.Test;
  */
 public class TwitterReadPublicTimeLineTest extends CamelTwitterTestSupport {
     private static final transient Log LOG = LogFactory.getLog(TwitterReadPublicTimeLineTest.class);
+    
+    private CamelTwitterTestSupport support = new CamelTwitterTestSupport();
 
     // a disabled test... before enabling you must fill in your own twitter credentials in the route below
     @Test
@@ -55,7 +57,7 @@ public class TwitterReadPublicTimeLineTest extends CamelTwitterTestSupport {
         return new RouteBuilder() {
             public void configure() {
                 // START SNIPPET: e1
-                from("twitter:tweets?type=ALL")
+            	from("twitter://timeline/public?" + support.getUriTokens())
                    .transform(body().convertToString())
                    .to("mock:result");
                 // END SNIPPET: e1

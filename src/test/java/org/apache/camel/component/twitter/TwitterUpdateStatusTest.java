@@ -47,8 +47,8 @@ public class TwitterUpdateStatusTest extends CamelTwitterTestSupport {
         return new RouteBuilder() {
             public void configure() {
                 // START SNIPPET: e1
-                from("direct:start")
-                   .to("twitter:tweetit?user=" + getUser() + "&pass=" + getPass());
+//                from("direct:start")
+//                   .to("twitter:tweetit?user=" + getUser() + "&pass=" + getPass());
                 // END SNIPPET: e1
             }
         };

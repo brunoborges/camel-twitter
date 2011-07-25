@@ -9,9 +9,10 @@ import org.apache.camel.test.junit4.CamelTestSupport;
 
 public class CamelTwitterTestSupport extends CamelTestSupport {
 
-	private String user;
-	private String pass;
-	private String follow;
+	private String consumerKey;
+	private String consumerSecret;
+	private String accessToken;
+	private String accessTokenSecret;
 
 	public CamelTwitterTestSupport() {
 		URL url = getClass().getResource("/test-options.properties");
@@ -34,33 +35,46 @@ public class CamelTwitterTestSupport extends CamelTestSupport {
 					"test-options.properties could not be found");
 		}
 
-		setUser(properties.get("username").toString());
-		setPass(properties.get("password").toString());
-		setFollow(properties.get("follow").toString());
+		setAccessToken(properties.get("access.token").toString());
+		setAccessTokenSecret(properties.get("access.token.secret").toString());
 	}
 
-	protected final String getUser() {
-		return user;
+	public String getConsumerKey() {
+		return consumerKey;
 	}
 
-	protected final String getPass() {
-		return pass;
+	public void setConsumerKey(String consumerKey) {
+		this.consumerKey = consumerKey;
 	}
 
-	protected final String getFollow() {
-		return follow;
+	public String getConsumerSecret() {
+		return consumerSecret;
 	}
 
-	private void setUser(String object) {
-		this.user = object;
+	public void setConsumerSecret(String consumerSecret) {
+		this.consumerSecret = consumerSecret;
 	}
 
-	private void setPass(String object) {
-		this.pass = object;
+	public String getAccessToken() {
+		return accessToken;
 	}
 
-	private void setFollow(String object) {
-		this.follow = object;
+	public void setAccessToken(String accessToken) {
+		this.accessToken = accessToken;
 	}
 
+	public String getAccessTokenSecret() {
+		return accessTokenSecret;
+	}
+
+	public void setAccessTokenSecret(String accessTokenSecret) {
+		this.accessTokenSecret = accessTokenSecret;
+	}
+	
+	public String getUriTokens() {
+		return "consumerKey=" + consumerKey
+				+ "&consumerSecret=" + consumerSecret
+				+ "&accessToken=" + accessToken
+				+ "&accessTokenSecret=" + accessTokenSecret;
+	}
 }

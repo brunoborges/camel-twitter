@@ -23,7 +23,7 @@ public class TwitterUserConsumer extends TwitterConsumer {
 		List<twitter4j.Status> statusList = null;
 
 		TwitterEndpoint te = (TwitterEndpoint) getEndpoint();
-		statusList = te.getTwitter().getUserTimeline(te.getFollow(), new Paging(getLastStatusUpdateID()));
+		statusList = te.getTwitter().getUserTimeline(te.getUser(), new Paging(getLastStatusUpdateID()));
 
 		List<Status> statusCamelTweet = new ArrayList<Status>(statusList.size());
 		for (Iterator<twitter4j.Status> i = statusList.iterator(); i.hasNext();) {
