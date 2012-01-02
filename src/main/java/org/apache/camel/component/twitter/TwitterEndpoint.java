@@ -42,19 +42,19 @@ public class TwitterEndpoint extends DefaultPollingEndpoint {
 
 	// Twitter properties
 	
-	private String consumerKey = "";
+	private String consumerKey;
 	
-	private String consumerSecret = "";
+	private String consumerSecret;
 	
-	private String accessToken = "";
+	private String accessToken;
 	
-	private String accessTokenSecret = "";
+	private String accessTokenSecret;
 
 	private int delay = 60;
 
 	private String user;
 
-	private String search;
+	private String keywords;
 
 	public TwitterEndpoint(String uri, TwitterComponent component) {
 		super(uri, component);
@@ -144,12 +144,12 @@ public class TwitterEndpoint extends DefaultPollingEndpoint {
 		this.user = user;
 	}
 
-	public String getSearch() {
-		return this.search;
+	public String getKeywords() {
+		return keywords;
 	}
 
-	public void setSearch(String search) {
-		this.search = search;
+	public void setKeywords(String keywords) {
+		this.keywords = keywords;
 	}
 
 }

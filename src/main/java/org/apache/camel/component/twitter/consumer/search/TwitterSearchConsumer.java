@@ -26,8 +26,8 @@ public class TwitterSearchConsumer extends TwitterConsumer {
 	@Override
 	protected Iterator<Status> requestStatus() throws TwitterException {
 		TwitterEndpoint te = (TwitterEndpoint) getEndpoint();
-		String search = te.getSearch();
-		Query query = new Query(search);
+		String keywords = te.getKeywords();
+		Query query = new Query(keywords);
 		query.setSinceId(getLastStatusUpdateID());
 		QueryResult qr = te.getTwitter().search(query);
 		List<Tweet> tweets = qr.getTweets();

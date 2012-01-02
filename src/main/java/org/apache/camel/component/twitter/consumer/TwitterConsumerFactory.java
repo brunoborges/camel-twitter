@@ -66,9 +66,9 @@ public class TwitterConsumerFactory {
 				// TODO
 				break;
 			case SEARCH:
-				if (endpoint.getSearch() == null || endpoint.getSearch().trim().isEmpty()) {
+				if (endpoint.getKeywords() == null || endpoint.getKeywords().trim().isEmpty()) {
 					throw new IllegalArgumentException(
-							"Fetch type set to SEARCH but no search query was set.");
+							"Type set to SEARCH but no keywords were provided.");
 				} else {
 					return new TwitterSearchConsumer(endpoint, processor);
 				}

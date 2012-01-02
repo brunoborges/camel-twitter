@@ -9,10 +9,10 @@ import org.apache.camel.test.junit4.CamelTestSupport;
 
 public class CamelTwitterTestSupport extends CamelTestSupport {
 
-	private String consumerKey;
-	private String consumerSecret;
-	private String accessToken;
-	private String accessTokenSecret;
+	protected String consumerKey;
+	protected String consumerSecret;
+	protected String accessToken;
+	protected String accessTokenSecret;
 
 	public CamelTwitterTestSupport() {
 		URL url = getClass().getResource("/test-options.properties");
@@ -35,43 +35,13 @@ public class CamelTwitterTestSupport extends CamelTestSupport {
 					"test-options.properties could not be found");
 		}
 
-		setAccessToken(properties.get("access.token").toString());
-		setAccessTokenSecret(properties.get("access.token.secret").toString());
-	}
-
-	public String getConsumerKey() {
-		return consumerKey;
-	}
-
-	public void setConsumerKey(String consumerKey) {
-		this.consumerKey = consumerKey;
-	}
-
-	public String getConsumerSecret() {
-		return consumerSecret;
-	}
-
-	public void setConsumerSecret(String consumerSecret) {
-		this.consumerSecret = consumerSecret;
-	}
-
-	public String getAccessToken() {
-		return accessToken;
-	}
-
-	public void setAccessToken(String accessToken) {
-		this.accessToken = accessToken;
-	}
-
-	public String getAccessTokenSecret() {
-		return accessTokenSecret;
-	}
-
-	public void setAccessTokenSecret(String accessTokenSecret) {
-		this.accessTokenSecret = accessTokenSecret;
+		consumerKey = properties.get("consumer.key").toString();
+		consumerSecret = properties.get("consumer.secret").toString();
+		accessToken = properties.get("access.token").toString();
+		accessTokenSecret = properties.get("access.token.secret").toString();
 	}
 	
-	public String getUriTokens() {
+	protected String getUriTokens() {
 		return "consumerKey=" + consumerKey
 				+ "&consumerSecret=" + consumerSecret
 				+ "&accessToken=" + accessToken

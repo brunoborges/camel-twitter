@@ -32,12 +32,9 @@ public class TwitterReadHomeTimeLineTest extends CamelTwitterTestSupport {
     private static final transient Log LOG = LogFactory.getLog(
     		TwitterReadHomeTimeLineTest.class);
     
-    private CamelTwitterTestSupport support = new CamelTwitterTestSupport();
-    
 
-    // a disabled test... before enabling you must fill in your own twitter credentials in the route below
     @Test
-    public void testReadFriendsTimeline() throws Exception {
+    public void testReadHomeTimeLine() throws Exception {
         MockEndpoint mock = getMockEndpoint("mock:result");
         mock.expectedMinimumMessageCount(1);
         mock.assertIsSatisfied();
@@ -58,11 +55,9 @@ public class TwitterReadHomeTimeLineTest extends CamelTwitterTestSupport {
     protected RouteBuilder createRouteBuilder() {
         return new RouteBuilder() {
             public void configure() {
-                // START SNIPPET: e1
-                from("twitter://timeline/home?" + support.getUriTokens())
+                from("twitter://timeline/home?" + getUriTokens())
                    .transform(body().convertToString())
                    .to("mock:result");
-                // END SNIPPET: e1
             }
         };
     }

@@ -29,11 +29,9 @@ import org.junit.Test;
  * consumes tweets
  */
 public class TwitterReadPublicTimeLineTest extends CamelTwitterTestSupport {
-    private static final transient Log LOG = LogFactory.getLog(TwitterReadPublicTimeLineTest.class);
-    
-    private CamelTwitterTestSupport support = new CamelTwitterTestSupport();
+    private static final transient Log LOG
+    		= LogFactory.getLog(TwitterReadPublicTimeLineTest.class);
 
-    // a disabled test... before enabling you must fill in your own twitter credentials in the route below
     @Test
     public void testReadPublicTimeline() throws Exception {
         MockEndpoint mock = getMockEndpoint("mock:result");
@@ -55,12 +53,10 @@ public class TwitterReadPublicTimeLineTest extends CamelTwitterTestSupport {
 
     protected RouteBuilder createRouteBuilder() {
         return new RouteBuilder() {
-            public void configure() {
-                // START SNIPPET: e1
-            	from("twitter://timeline/public?" + support.getUriTokens())
+        	public void configure() {
+                from("twitter://timeline/public?" + getUriTokens())
                    .transform(body().convertToString())
                    .to("mock:result");
-                // END SNIPPET: e1
             }
         };
     }

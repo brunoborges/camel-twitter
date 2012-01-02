@@ -29,9 +29,9 @@ import org.junit.Test;
  * consumes tweets
  */
 public class TwitterSearchTimeLineTest extends CamelTwitterTestSupport {
-    private static final transient Log LOG = LogFactory.getLog(TwitterSearchTimeLineTest.class);
+    private static final transient Log LOG
+    		= LogFactory.getLog(TwitterSearchTimeLineTest.class);
 
-    // a disabled test... before enabling you must fill in your own twitter credentials in the route below
     @Test
     public void testSearchTimeline() throws Exception {
         MockEndpoint mock = getMockEndpoint("mock:result");
@@ -54,11 +54,9 @@ public class TwitterSearchTimeLineTest extends CamelTwitterTestSupport {
     protected RouteBuilder createRouteBuilder() {
         return new RouteBuilder() {
             public void configure() {
-                // START SNIPPET: e1
-                from("twitter:tweets?type=SEARCH&search=#justjava")
-                   .transform(body().convertToString())
-                   .to("mock:result");
-                // END SNIPPET: e1
+                from("twitter://search?keywords=java&" + getUriTokens())
+		                .transform(body().convertToString())
+		                .to("mock:result");
             }
         };
     }
