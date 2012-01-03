@@ -4,12 +4,13 @@ import java.util.regex.Pattern;
 
 import org.apache.camel.Processor;
 import org.apache.camel.component.twitter.TwitterEndpoint;
-import org.apache.camel.component.twitter.consumer.search.TwitterSearchConsumer;
+import org.apache.camel.component.twitter.consumer.search.PollingSearchConsumer;
+import org.apache.camel.component.twitter.consumer.timeline.PollingHomeConsumer;
+import org.apache.camel.component.twitter.consumer.timeline.PollingPublicConsumer;
+import org.apache.camel.component.twitter.consumer.timeline.PollingUserConsumer;
 import org.apache.camel.component.twitter.consumer.timeline.RetweetTimelineType;
 import org.apache.camel.component.twitter.consumer.timeline.TimelineType;
-import org.apache.camel.component.twitter.consumer.timeline.TwitterHomeConsumer;
-import org.apache.camel.component.twitter.consumer.timeline.TwitterPublicConsumer;
-import org.apache.camel.component.twitter.consumer.timeline.TwitterUserConsumer;
+import org.apache.camel.component.twitter.util.ConsumerType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -19,7 +20,7 @@ import org.apache.commons.logging.LogFactory;
 public class TwitterConsumerFactory {
 	private static final transient Log LOG = LogFactory.getLog(TwitterConsumerFactory.class);
 
-	public static TwitterConsumer getConsumer(TwitterEndpoint endpoint,
+	public static TwitterConsumerPolling getPollingConsumer(TwitterEndpoint endpoint,
 			Processor processor, String uri) throws IllegalArgumentException {
 		
 		/** URI STRUCTURE:
@@ -66,11 +67,11 @@ public class TwitterConsumerFactory {
 				// TODO
 				break;
 			case SEARCH:
-				if (endpoint.getKeywords() == null || endpoint.getKeywords().trim().isEmpty()) {
+				if (endpoint.getProperties().getKeywords() == null || endpoint.getProperties().getKeywords().trim().isEmpty()) {
 					throw new IllegalArgumentException(
 							"Type set to SEARCH but no keywords were provided.");
 				} else {
-					return new TwitterSearchConsumer(endpoint, processor);
+					return new PollingSearchConsumer(endpoint, processor);
 				}
 			case STREAMING:
 				// TODO
@@ -79,12 +80,12 @@ public class TwitterConsumerFactory {
 				if (typeSplit.length > 1) {
 					switch (TimelineType.fromUri(typeSplit[1])) {
 					case HOME:
-						return new TwitterHomeConsumer(endpoint, processor);
+						return new PollingHomeConsumer(endpoint, processor);
 					case MENTIONS:
 						// TODO
 						break;
 					case PUBLIC:
-						return new TwitterPublicConsumer(endpoint, processor);
+						return new PollingPublicConsumer(endpoint, processor);
 					case RETWEETS:
 						if (typeSplit.length > 2) {
 							switch (RetweetTimelineType.fromUri(typeSplit[2])) {
@@ -101,11 +102,11 @@ public class TwitterConsumerFactory {
 						}
 						break;
 					case USER:
-						if (endpoint.getUser() == null || endpoint.getUser().trim().isEmpty()) {
+						if (endpoint.getProperties().getUser() == null || endpoint.getProperties().getUser().trim().isEmpty()) {
 							throw new IllegalArgumentException(
 									"Fetch type set to USER TIMELINE but no user was set.");
 						} else {
-							return new TwitterUserConsumer(endpoint, processor);
+							return new PollingUserConsumer(endpoint, processor);
 						}
 					}
 				}
@@ -122,7 +123,13 @@ public class TwitterConsumerFactory {
 			}
 		}
 		
-		LOG.warn("A fetch type was not provided (or an incorrect pairing was used).  Defaulting to PUBLIC!");
-		return new TwitterPublicConsumer(endpoint, processor);
+		LOG.warn("A consumer type was not provided (or an incorrect pairing was used).  Defaulting to Public Timeline!");
+		return new PollingPublicConsumer(endpoint, processor);
+	}
+	
+	public static TwitterConsumerDirect getDirectConsumer(TwitterEndpoint endpoint,
+			Processor processor, String uri) throws IllegalArgumentException {
+		// TODO
+		return null;
 	}
 }

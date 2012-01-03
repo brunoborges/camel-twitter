@@ -1,4 +1,4 @@
-package org.apache.camel.component.twitter.consumer;
+package org.apache.camel.component.twitter.util;
 
 /**
  * @author Brett E. Meyer (3RiverDev.com)

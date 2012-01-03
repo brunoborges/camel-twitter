@@ -2,20 +2,56 @@ package org.apache.camel.component.twitter.data;
 
 import java.net.URL;
 
-public interface User {
+public class User {
 
-	public String getName();
+	public User(String name) {
+		this.name = name;
+	}
 
-	public String getScreenname();
+	public User(twitter4j.User user) {
+		this.name = user.getName();
+		this.screenname = user.getScreenName();
+		this.profileImageUrl = user.getProfileImageURL();
+		this.profileUrl = user.getURL();
+		this.location = user.getLocation();
+		this.description = user.getDescription();
+		this.followersCount = user.getFollowersCount();
+	}
 
-	public String getLocation();
+	private String description;
+	private String screenname;
+	private URL profileUrl;
+	private URL profileImageUrl;
+	private String name;
+	private String location;
+	private int followersCount;
 
-	public String getDescription();
+	public String getDescription() {
+		return description;
+	}
 
-	public int getFollowersCount();
+	public int getFollowersCount() {
+		return followersCount;
+	}
 
-	public URL getProfileImageUrl();
+	public String getLocation() {
+		return location;
+	}
 
-	public URL getProfileUrl();
+	public String getName() {
+		return name;
+	}
+
+	public URL getProfileImageUrl() {
+		return profileImageUrl;
+	}
+
+	public URL getProfileUrl() {
+		return profileUrl;
+	}
+
+	public String getScreenname() {
+		return screenname;
+	}
 
 }

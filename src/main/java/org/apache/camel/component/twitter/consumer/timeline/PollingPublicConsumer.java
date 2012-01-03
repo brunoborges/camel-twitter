@@ -6,15 +6,14 @@ import java.util.List;
 
 import org.apache.camel.Processor;
 import org.apache.camel.component.twitter.TwitterEndpoint;
-import org.apache.camel.component.twitter.consumer.TwitterConsumer;
+import org.apache.camel.component.twitter.consumer.TwitterConsumerPolling;
 import org.apache.camel.component.twitter.data.Status;
 
-import twitter4j.Paging;
 import twitter4j.TwitterException;
 
-public class TwitterUserConsumer extends TwitterConsumer {
+public class PollingPublicConsumer extends TwitterConsumerPolling {
 
-	public TwitterUserConsumer(TwitterEndpoint endpoint, Processor processor) {
+	public PollingPublicConsumer(TwitterEndpoint endpoint, Processor processor) {
 		super(endpoint, processor);
 	}
 
@@ -23,8 +22,12 @@ public class TwitterUserConsumer extends TwitterConsumer {
 		List<twitter4j.Status> statusList = null;
 
 		TwitterEndpoint te = (TwitterEndpoint) getEndpoint();
-		statusList = te.getTwitter().getUserTimeline(te.getUser(), new Paging(getLastStatusUpdateID()));
+		statusList = te.getTwitter().getPublicTimeline();
 
+		// FIXME should search for tweets since last tweet
+		// previous code could do this, but now API of twitter4j has changed
+		// must think about another way
+		
 		List<Status> statusCamelTweet = new ArrayList<Status>(statusList.size());
 		for (Iterator<twitter4j.Status> i = statusList.iterator(); i.hasNext();) {
 			statusCamelTweet.add(convertStatus(i.next()));

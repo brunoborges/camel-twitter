@@ -18,6 +18,9 @@ package org.apache.camel.component.twitter;
 
 import java.util.Map;
 
+import org.apache.camel.Endpoint;
+import org.apache.camel.component.twitter.util.EndpointType;
+import org.apache.camel.component.twitter.util.TwitterProperties;
 import org.apache.camel.impl.DefaultComponent;
 
 /**
@@ -28,11 +31,21 @@ import org.apache.camel.impl.DefaultComponent;
  */
 public class TwitterComponent extends DefaultComponent {
 
-	protected TwitterEndpoint createEndpoint(String uri, String remaining,
+	protected Endpoint createEndpoint(String uri, String remaining,
 			Map<String, Object> parameters) throws Exception {
+		TwitterProperties properties = new TwitterProperties();
+		setProperties(properties, parameters);
+		
+		TwitterEndpoint endpoint = null;
+		switch (EndpointType.fromUri(properties.getType())) {
+		case POLLING:
+			endpoint = new TwitterEndpointPolling(uri, this, properties);
+			break;
+		default:
+			endpoint = new TwitterEndpointDirect(uri, this, properties);
+			break;
+		}
 
-		TwitterEndpoint endpoint = new TwitterEndpoint(uri, this);
-		setProperties(endpoint, parameters);
 		endpoint.initiate();
 		return endpoint;
 	}

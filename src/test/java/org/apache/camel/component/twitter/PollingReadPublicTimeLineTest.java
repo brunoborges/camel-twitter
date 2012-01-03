@@ -28,9 +28,9 @@ import org.junit.Test;
 /**
  * consumes tweets
  */
-public class TwitterReadPublicTimeLineTest extends CamelTwitterTestSupport {
+public class PollingReadPublicTimeLineTest extends CamelTwitterTestSupport {
     private static final transient Log LOG
-    		= LogFactory.getLog(TwitterReadPublicTimeLineTest.class);
+    		= LogFactory.getLog(PollingReadPublicTimeLineTest.class);
 
     @Test
     public void testReadPublicTimeline() throws Exception {
@@ -54,7 +54,7 @@ public class TwitterReadPublicTimeLineTest extends CamelTwitterTestSupport {
     protected RouteBuilder createRouteBuilder() {
         return new RouteBuilder() {
         	public void configure() {
-                from("twitter://timeline/public?" + getUriTokens())
+                from("twitter://timeline/public?type=polling&" + getUriTokens())
                    .transform(body().convertToString())
                    .to("mock:result");
             }
