@@ -5,12 +5,15 @@ import java.util.regex.Pattern;
 import org.apache.camel.Processor;
 import org.apache.camel.component.twitter.TwitterEndpoint;
 import org.apache.camel.component.twitter.consumer.search.PollingSearchConsumer;
+import org.apache.camel.component.twitter.consumer.streaming.PollingFilterConsumer;
+import org.apache.camel.component.twitter.consumer.streaming.PollingSampleConsumer;
 import org.apache.camel.component.twitter.consumer.timeline.PollingHomeConsumer;
 import org.apache.camel.component.twitter.consumer.timeline.PollingPublicConsumer;
 import org.apache.camel.component.twitter.consumer.timeline.PollingUserConsumer;
 import org.apache.camel.component.twitter.consumer.timeline.RetweetTimelineType;
-import org.apache.camel.component.twitter.consumer.timeline.TimelineType;
 import org.apache.camel.component.twitter.util.ConsumerType;
+import org.apache.camel.component.twitter.util.StreamingType;
+import org.apache.camel.component.twitter.util.TimelineType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -74,7 +77,15 @@ public class TwitterConsumerFactory {
 					return new PollingSearchConsumer(endpoint, processor);
 				}
 			case STREAMING:
-				// TODO
+				switch (StreamingType.fromUri(typeSplit[1])) {
+				case FIREHOSE:
+					// No way to test this -- no access.
+					break;
+				case SAMPLE:
+					return new PollingSampleConsumer(endpoint, processor);
+				case FILTER:
+					return new PollingFilterConsumer(endpoint, processor);
+				}
 				break;
 			case TIMELINE:
 				if (typeSplit.length > 1) {

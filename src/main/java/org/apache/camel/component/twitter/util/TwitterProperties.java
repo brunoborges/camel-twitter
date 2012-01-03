@@ -21,6 +21,8 @@ public class TwitterProperties {
 	
 	private String type;
 	
+	private String locations;
+	
 	public void checkComplete() {
 		if (consumerKey.isEmpty() || consumerSecret.isEmpty()
 				|| accessToken.isEmpty() || accessTokenSecret.isEmpty()) {
@@ -100,5 +102,13 @@ public class TwitterProperties {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getLocations() {
+		return locations;
+	}
+
+	public void setLocations(String locations) {
+		this.locations = locations;
 	}
 }

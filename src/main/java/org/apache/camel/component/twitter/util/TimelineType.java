@@ -1,4 +1,4 @@
-package org.apache.camel.component.twitter.consumer.timeline;
+package org.apache.camel.component.twitter.util;
 
 
 /**

@@ -39,9 +39,9 @@ public abstract class TwitterConsumerPolling extends ScheduledPollConsumer imple
 		while (statusIterator.hasNext()) {
 			tStatus = statusIterator.next();
 
-			if (tStatus.getId() <= lastStatusUpdateID) {
-				return 0;
-			}
+//			if (tStatus.getId() <= lastStatusUpdateID) {
+//				return 0;
+//			}
 
 			Exchange e = getEndpoint().createExchange();
 
