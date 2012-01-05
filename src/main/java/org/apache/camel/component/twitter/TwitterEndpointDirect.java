@@ -30,7 +30,9 @@ import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 
 /**
- * Represents a polling endpoint that synchronously invokes the consumers.
+ * Direct endpoint
+ * 
+ * @author Brett E. Meyer (3RiverDev.com)
  */
 public class TwitterEndpointDirect extends DirectEndpoint implements TwitterEndpoint {
 

@@ -21,6 +21,9 @@ import org.apache.camel.component.twitter.util.TwitterProperties;
 
 import twitter4j.Twitter;
 
+/**
+ * @author Brett E. Meyer (3RiverDev.com)
+ */
 public interface TwitterEndpoint extends Endpoint {
 	
 	public void initiate();

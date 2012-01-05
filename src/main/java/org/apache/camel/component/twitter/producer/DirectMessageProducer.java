@@ -23,6 +23,11 @@ import org.apache.camel.impl.DefaultProducer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+/**
+ * Produces text as a direct message.
+ * 
+ * @author Brett E. Meyer (3RiverDev.com)
+ */
 public class DirectMessageProducer extends DefaultProducer implements Processor {
 
 	private static final transient Log LOG = LogFactory

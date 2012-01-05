@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.camel.component.twitter.producer;
 
 import org.apache.camel.Exchange;
@@ -23,6 +24,12 @@ import org.apache.camel.impl.DefaultProducer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+/**
+ * Produces text as a status update.
+ * 
+ * @author Brett E. Meyer (3RiverDev.com)
+ * @author Bruno Borges
+ */
 public class UserProducer extends DefaultProducer implements Processor {
 
 	private static final transient Log LOG = LogFactory

@@ -31,7 +31,9 @@ import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 
 /**
- * Represents a polling endpoint that synchronously invokes the consumers.
+ * Scheduled polling endpoint
+ * 
+ * @author Brett E. Meyer (3RiverDev.com)
  */
 public class TwitterEndpointPolling extends DefaultPollingEndpoint implements TwitterEndpoint {
 

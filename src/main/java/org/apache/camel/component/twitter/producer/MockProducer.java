@@ -23,6 +23,9 @@ import org.apache.camel.impl.DefaultProducer;
 
 // This may not be necessary.  Just need a way to block most endpoints
 // from producing.
+/**
+ * @author Brett E. Meyer (3RiverDev.com)
+ */
 public class MockProducer extends DefaultProducer implements Processor {
 
 	public MockProducer(TwitterEndpoint te) {

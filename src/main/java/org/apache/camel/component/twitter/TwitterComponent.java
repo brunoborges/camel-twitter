@@ -24,10 +24,9 @@ import org.apache.camel.component.twitter.util.TwitterProperties;
 import org.apache.camel.impl.DefaultComponent;
 
 /**
- * Represents the component that manages {@link TwitterEndpoint}. It holds the
- * list of named direct endpoints.
+ * Main component class
  * 
- * @version
+ * @author Brett E. Meyer (3RiverDev.com)
  */
 public class TwitterComponent extends DefaultComponent {
 
