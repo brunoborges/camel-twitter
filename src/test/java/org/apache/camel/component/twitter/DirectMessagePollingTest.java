@@ -28,13 +28,13 @@ import org.junit.Test;
 /**
  * consumes tweets
  */
-public class PollingReadHomeTimeLineTest extends CamelTwitterTestSupport {
+public class DirectMessagePollingTest extends CamelTwitterTestSupport {
     private static final transient Log LOG = LogFactory.getLog(
-    		PollingReadHomeTimeLineTest.class);
+    		DirectMessagePollingTest.class);
     
 
     @Test
-    public void testReadHomeTimeLine() throws Exception {
+    public void testReadDirectMessage() throws Exception {
         MockEndpoint mock = getMockEndpoint("mock:result");
         mock.expectedMinimumMessageCount(1);
         mock.assertIsSatisfied();
@@ -55,7 +55,7 @@ public class PollingReadHomeTimeLineTest extends CamelTwitterTestSupport {
     protected RouteBuilder createRouteBuilder() {
         return new RouteBuilder() {
             public void configure() {
-                from("twitter://timeline/home?type=polling&" + getUriTokens())
+                from("twitter://directmessage?type=polling&" + getUriTokens())
                    .transform(body().convertToString())
                    .to("mock:result");
             }

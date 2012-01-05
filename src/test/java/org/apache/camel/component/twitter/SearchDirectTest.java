@@ -28,12 +28,12 @@ import org.junit.Test;
 /**
  * consumes tweets
  */
-public class PollingReadUserTimeLineTest extends CamelTwitterTestSupport {
+public class SearchDirectTest extends CamelTwitterTestSupport {
     private static final transient Log LOG
-    		= LogFactory.getLog(PollingReadUserTimeLineTest.class);
+    		= LogFactory.getLog(SearchDirectTest.class);
 
     @Test
-    public void testReadUserTimeline() throws Exception {
+    public void testSearchTimeline() throws Exception {
         MockEndpoint mock = getMockEndpoint("mock:result");
         mock.expectedMinimumMessageCount(1);
         mock.assertIsSatisfied();
@@ -54,9 +54,9 @@ public class PollingReadUserTimeLineTest extends CamelTwitterTestSupport {
     protected RouteBuilder createRouteBuilder() {
         return new RouteBuilder() {
             public void configure() {
-                from("twitter://timeline/user?type=polling&user=brettemeyer&" + getUriTokens())
-	                   .transform(body().convertToString())
-	                   .to("mock:result");
+                from("twitter://search?type=direct&keywords=java&" + getUriTokens())
+		                .transform(body().convertToString())
+		                .to("mock:result");
             }
         };
     }
