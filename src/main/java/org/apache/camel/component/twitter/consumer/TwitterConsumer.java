@@ -7,5 +7,4 @@ import org.apache.camel.Consumer;
 
 public interface TwitterConsumer extends Consumer {
 
-	public long getLastStatusUpdateID();
 }

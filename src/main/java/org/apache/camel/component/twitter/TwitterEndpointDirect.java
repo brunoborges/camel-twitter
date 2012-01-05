@@ -19,7 +19,9 @@ package org.apache.camel.component.twitter;
 import org.apache.camel.Consumer;
 import org.apache.camel.Processor;
 import org.apache.camel.component.direct.DirectEndpoint;
-import org.apache.camel.component.twitter.consumer.TwitterConsumerFactory;
+import org.apache.camel.component.twitter.consumer.Twitter4JConsumer;
+import org.apache.camel.component.twitter.consumer.Twitter4JFactory;
+import org.apache.camel.component.twitter.consumer.TwitterConsumerDirect;
 import org.apache.camel.component.twitter.util.TwitterProperties;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -44,8 +46,8 @@ public class TwitterEndpointDirect extends DirectEndpoint implements TwitterEndp
 	}
 
 	public Consumer createConsumer(Processor processor) throws Exception {
-		return TwitterConsumerFactory.getDirectConsumer(
-				this, processor, getEndpointUri());
+		Twitter4JConsumer twitter4jConsumer = Twitter4JFactory.getConsumer(this, getEndpointUri());
+		return new TwitterConsumerDirect(this, processor, twitter4jConsumer);
 	}
 
 //	public Producer createProducer() throws Exception {

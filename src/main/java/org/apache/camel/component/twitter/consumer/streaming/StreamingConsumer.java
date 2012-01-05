@@ -5,9 +5,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.camel.Processor;
 import org.apache.camel.component.twitter.TwitterEndpoint;
-import org.apache.camel.component.twitter.consumer.TwitterConsumerPolling;
+import org.apache.camel.component.twitter.consumer.Twitter4JConsumer;
 import org.apache.camel.component.twitter.data.Status;
 import org.apache.camel.component.twitter.util.TwitterConverter;
 
@@ -15,20 +14,26 @@ import twitter4j.StatusDeletionNotice;
 import twitter4j.StatusListener;
 import twitter4j.TwitterException;
 
-public class PollingStreamingConsumer extends TwitterConsumerPolling implements StatusListener {
+public class StreamingConsumer implements Twitter4JConsumer, StatusListener {
+	
+	TwitterEndpoint te;
 	
 	private List<Status> receivedStatuses = new ArrayList<Status>();
 	
 	private boolean clear = false;
 
-	public PollingStreamingConsumer(TwitterEndpoint endpoint, Processor processor) {
-		super(endpoint, processor);
+	public StreamingConsumer(TwitterEndpoint te) {
+		this.te = te;
 	}
 
-	@Override
-	protected Iterator<Status> requestStatus() throws TwitterException {
+	public Iterator<Status> requestPollingStatus(long lastStatusUpdateId) throws TwitterException {
 		clear = true;
 		return Collections.unmodifiableList(receivedStatuses).iterator();
+	}
+
+	public Iterator<Status> requestDirectStatus() throws TwitterException {
+		// not used
+		return null;
 	}
 
 	@Override

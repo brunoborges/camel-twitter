@@ -1,22 +1,21 @@
 package org.apache.camel.component.twitter.consumer.streaming;
 
-import org.apache.camel.Processor;
 import org.apache.camel.component.twitter.TwitterEndpoint;
 
 import twitter4j.FilterQuery;
 import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
 
-public class PollingFilterConsumer extends PollingStreamingConsumer {
+public class FilterConsumer extends StreamingConsumer {
 	
-	public PollingFilterConsumer(TwitterEndpoint endpoint, Processor processor) {
-		super(endpoint, processor);
+	public FilterConsumer(TwitterEndpoint te) {
+		super(te);
 		
 		TwitterStream twitterStream = new TwitterStreamFactory(
-				endpoint.getProperties().getConfiguration()).getInstance();
+				te.getProperties().getConfiguration()).getInstance();
 		twitterStream.addListener(this);
 		
-		String allLocationsString = endpoint.getProperties().getLocations();
+		String allLocationsString = te.getProperties().getLocations();
 		String[] locationStrings = allLocationsString.split(";");
 		double[][] locations = new double[locationStrings.length][2];
 		for (int i = 0; i < locationStrings.length; i++) {

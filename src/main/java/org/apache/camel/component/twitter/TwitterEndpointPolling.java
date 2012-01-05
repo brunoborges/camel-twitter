@@ -19,8 +19,10 @@ package org.apache.camel.component.twitter;
 import org.apache.camel.Consumer;
 import org.apache.camel.Processor;
 import org.apache.camel.Producer;
+import org.apache.camel.component.twitter.consumer.Twitter4JConsumer;
+import org.apache.camel.component.twitter.consumer.Twitter4JFactory;
 import org.apache.camel.component.twitter.consumer.TwitterConsumer;
-import org.apache.camel.component.twitter.consumer.TwitterConsumerFactory;
+import org.apache.camel.component.twitter.consumer.TwitterConsumerPolling;
 import org.apache.camel.component.twitter.util.TwitterProperties;
 import org.apache.camel.impl.DefaultPollingEndpoint;
 import org.apache.commons.logging.Log;
@@ -46,8 +48,8 @@ public class TwitterEndpointPolling extends DefaultPollingEndpoint implements Tw
 	}
 
 	public Consumer createConsumer(Processor processor) throws Exception {
-		TwitterConsumer tc = TwitterConsumerFactory.getPollingConsumer(
-				this, processor, getEndpointUri());
+		Twitter4JConsumer twitter4jConsumer = Twitter4JFactory.getConsumer(this, getEndpointUri());
+		TwitterConsumer tc = new TwitterConsumerPolling(this, processor, twitter4jConsumer);
 		configureConsumer(tc);
 		return tc;
 	}

@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.camel.Processor;
 import org.apache.camel.component.twitter.TwitterEndpoint;
-import org.apache.camel.component.twitter.consumer.TwitterConsumerPolling;
+import org.apache.camel.component.twitter.consumer.Twitter4JConsumer;
 import org.apache.camel.component.twitter.data.Status;
 
 import twitter4j.Query;
@@ -14,18 +13,27 @@ import twitter4j.QueryResult;
 import twitter4j.Tweet;
 import twitter4j.TwitterException;
 
-public class PollingSearchConsumer extends TwitterConsumerPolling {
+public class SearchConsumer implements Twitter4JConsumer {
 
-	public PollingSearchConsumer(TwitterEndpoint endpoint, Processor processor) {
-		super(endpoint, processor);
+	TwitterEndpoint te;
+	
+	public SearchConsumer(TwitterEndpoint te) {
+		this.te = te;
 	}
 
-	@Override
-	protected Iterator<Status> requestStatus() throws TwitterException {
-		TwitterEndpoint te = (TwitterEndpoint) getEndpoint();
+	public Iterator<Status> requestPollingStatus(long lastStatusUpdateId) throws TwitterException {
 		String keywords = te.getProperties().getKeywords();
 		Query query = new Query(keywords);
-		query.setSinceId(getLastStatusUpdateID());
+		query.setSinceId(lastStatusUpdateId);
+		return search(query);
+	}
+	
+	public Iterator<Status> requestDirectStatus() throws TwitterException {
+		String keywords = te.getProperties().getKeywords();
+		return search(new Query(keywords));
+	}
+	
+	private Iterator<Status> search(Query query) throws TwitterException {
 		QueryResult qr = te.getTwitter().search(query);
 		List<Tweet> tweets = qr.getTweets();
 
@@ -37,5 +45,4 @@ public class PollingSearchConsumer extends TwitterConsumerPolling {
 
 		return statusCamel.iterator();
 	}
-
 }

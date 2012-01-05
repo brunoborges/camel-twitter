@@ -1,18 +1,17 @@
 package org.apache.camel.component.twitter.consumer.streaming;
 
-import org.apache.camel.Processor;
 import org.apache.camel.component.twitter.TwitterEndpoint;
 
 import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
 
-public class PollingSampleConsumer extends PollingStreamingConsumer {
+public class SampleConsumer extends StreamingConsumer {
 	
-	public PollingSampleConsumer(TwitterEndpoint endpoint, Processor processor) {
-		super(endpoint, processor);
+	public SampleConsumer(TwitterEndpoint te) {
+		super(te);
 		
 		TwitterStream twitterStream = new TwitterStreamFactory(
-				endpoint.getProperties().getConfiguration()).getInstance();
+				te.getProperties().getConfiguration()).getInstance();
 		twitterStream.addListener(this);
 	    twitterStream.sample();
 	}

@@ -12,16 +12,18 @@ import org.apache.camel.component.twitter.TwitterEndpoint;
 import org.apache.camel.component.twitter.data.Status;
 import org.apache.camel.impl.ScheduledPollConsumer;
 
-import twitter4j.TwitterException;
+public class TwitterConsumerPolling extends ScheduledPollConsumer implements TwitterConsumer {
 
-public abstract class TwitterConsumerPolling extends ScheduledPollConsumer implements TwitterConsumer {
-
+	private Twitter4JConsumer twitter4jConsumer;
+	
 	private long lastStatusUpdateID = 1;
 
 	private int delay;
 
-	public TwitterConsumerPolling(TwitterEndpoint endpoint, Processor processor) {
+	public TwitterConsumerPolling(TwitterEndpoint endpoint, Processor processor, Twitter4JConsumer twitter4jConsumer) {
 		super(endpoint, processor);
+		
+		this.twitter4jConsumer = twitter4jConsumer;
 
 		delay = endpoint.getProperties().getDelay();
 
@@ -31,12 +33,11 @@ public abstract class TwitterConsumerPolling extends ScheduledPollConsumer imple
 	}
 
 	protected int poll() throws Exception {
-		Iterator<Status> statusIterator = requestStatus();
+		Iterator<Status> statusIterator = twitter4jConsumer.requestPollingStatus(lastStatusUpdateID);
 
-		Status tStatus = null;
 		int total = 0;
 		while (statusIterator.hasNext()) {
-			tStatus = statusIterator.next();
+			Status tStatus = statusIterator.next();
 
 //			if (tStatus.getId() <= lastStatusUpdateID) {
 //				return 0;
@@ -65,7 +66,4 @@ public abstract class TwitterConsumerPolling extends ScheduledPollConsumer imple
 	public long getLastStatusUpdateID() {
 		return lastStatusUpdateID;
 	}
-
-	protected abstract Iterator<Status> requestStatus()
-			throws TwitterException;
 }
