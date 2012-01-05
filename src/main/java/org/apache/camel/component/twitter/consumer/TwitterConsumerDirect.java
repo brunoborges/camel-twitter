@@ -20,10 +20,6 @@ public abstract class TwitterConsumerDirect extends ScheduledPollConsumer implem
 		super(endpoint, processor);
 	}
 
-	protected final Status convertStatus(twitter4j.Status s) {
-		return new Status(s);
-	}
-
 	public long getLastStatusUpdateID() {
 		return lastStatusUpdateID;
 	}

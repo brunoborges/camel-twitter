@@ -9,6 +9,7 @@ import org.apache.camel.Processor;
 import org.apache.camel.component.twitter.TwitterEndpoint;
 import org.apache.camel.component.twitter.consumer.TwitterConsumerPolling;
 import org.apache.camel.component.twitter.data.Status;
+import org.apache.camel.component.twitter.util.TwitterConverter;
 
 import twitter4j.StatusDeletionNotice;
 import twitter4j.StatusListener;
@@ -42,7 +43,7 @@ public class PollingStreamingConsumer extends TwitterConsumerPolling implements 
 			receivedStatuses.clear();
 			clear = false;
 		}
-		receivedStatuses.add(convertStatus(status));
+		receivedStatuses.add(TwitterConverter.convertStatus(status));
 	}
 
 	@Override

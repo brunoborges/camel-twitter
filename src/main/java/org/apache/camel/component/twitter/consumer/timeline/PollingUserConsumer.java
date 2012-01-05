@@ -1,6 +1,5 @@
 package org.apache.camel.component.twitter.consumer.timeline;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -8,6 +7,7 @@ import org.apache.camel.Processor;
 import org.apache.camel.component.twitter.TwitterEndpoint;
 import org.apache.camel.component.twitter.consumer.TwitterConsumerPolling;
 import org.apache.camel.component.twitter.data.Status;
+import org.apache.camel.component.twitter.util.TwitterConverter;
 
 import twitter4j.Paging;
 import twitter4j.TwitterException;
@@ -20,17 +20,10 @@ public class PollingUserConsumer extends TwitterConsumerPolling {
 
 	@Override
 	protected Iterator<Status> requestStatus() throws TwitterException {
-		List<twitter4j.Status> statusList = null;
-
 		TwitterEndpoint te = (TwitterEndpoint) getEndpoint();
-		statusList = te.getTwitter().getUserTimeline(te.getProperties().getUser(), new Paging(getLastStatusUpdateID()));
-
-		List<Status> statusCamelTweet = new ArrayList<Status>(statusList.size());
-		for (Iterator<twitter4j.Status> i = statusList.iterator(); i.hasNext();) {
-			statusCamelTweet.add(convertStatus(i.next()));
-		}
-
-		return statusCamelTweet.iterator();
+		List<twitter4j.Status> statusList = te.getTwitter().getUserTimeline(
+				te.getProperties().getUser(), new Paging(getLastStatusUpdateID()));
+		return TwitterConverter.convertStatuses(statusList).iterator();
 	}
 
 }

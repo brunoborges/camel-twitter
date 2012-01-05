@@ -1,4 +1,4 @@
-package org.apache.camel.component.twitter.util;
+package org.apache.camel.component.twitter.data;
 
 
 /**

@@ -1,11 +1,11 @@
-package org.apache.camel.component.twitter.util;
+package org.apache.camel.component.twitter.data;
 
 /**
  * @author Brett E. Meyer (3RiverDev.com)
  */
 public enum ConsumerType {
 	
-	 TIMELINE, SEARCH, USER, TRENDS, USERLIST, DIRECTMESSAGE, GEO, STREAMING, UNKNOWN;
+	 TIMELINE, SEARCH, USER, TRENDS, USERLIST, DIRECTMESSAGE, STREAMING, UNKNOWN;
 	 
 	 public static ConsumerType fromUri(String uri) {
 		 for (ConsumerType consumerType : ConsumerType.values()) {

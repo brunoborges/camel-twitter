@@ -12,16 +12,16 @@ import org.apache.camel.component.twitter.util.TwitterConverter;
 import twitter4j.Paging;
 import twitter4j.TwitterException;
 
-public class PollingHomeConsumer extends TwitterConsumerPolling {
+public class PollingRetweetsConsumer extends TwitterConsumerPolling {
 
-	public PollingHomeConsumer(TwitterEndpoint endpoint, Processor processor) {
+	public PollingRetweetsConsumer(TwitterEndpoint endpoint, Processor processor) {
 		super(endpoint, processor);
 	}
 
 	@Override
 	protected Iterator<Status> requestStatus() throws TwitterException {
 		TwitterEndpoint te = (TwitterEndpoint) getEndpoint();
-		List<twitter4j.Status> statusList = te.getTwitter().getHomeTimeline(
+		List<twitter4j.Status> statusList = te.getTwitter().getRetweetsOfMe(
 				new Paging(getLastStatusUpdateID()));
 		return TwitterConverter.convertStatuses(statusList).iterator();
 	}

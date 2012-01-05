@@ -4,20 +4,44 @@ import java.util.regex.Pattern;
 
 import org.apache.camel.Processor;
 import org.apache.camel.component.twitter.TwitterEndpoint;
+import org.apache.camel.component.twitter.consumer.directmessage.PollingDirectMessageConsumer;
 import org.apache.camel.component.twitter.consumer.search.PollingSearchConsumer;
 import org.apache.camel.component.twitter.consumer.streaming.PollingFilterConsumer;
 import org.apache.camel.component.twitter.consumer.streaming.PollingSampleConsumer;
 import org.apache.camel.component.twitter.consumer.timeline.PollingHomeConsumer;
+import org.apache.camel.component.twitter.consumer.timeline.PollingMentionsConsumer;
 import org.apache.camel.component.twitter.consumer.timeline.PollingPublicConsumer;
+import org.apache.camel.component.twitter.consumer.timeline.PollingRetweetsConsumer;
 import org.apache.camel.component.twitter.consumer.timeline.PollingUserConsumer;
-import org.apache.camel.component.twitter.consumer.timeline.RetweetTimelineType;
-import org.apache.camel.component.twitter.util.ConsumerType;
-import org.apache.camel.component.twitter.util.StreamingType;
-import org.apache.camel.component.twitter.util.TimelineType;
+import org.apache.camel.component.twitter.data.ConsumerType;
+import org.apache.camel.component.twitter.data.StreamingType;
+import org.apache.camel.component.twitter.data.TimelineType;
+import org.apache.camel.component.twitter.data.TrendsType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
+ * URI STRUCTURE:
+ * 
+ * timeline/
+ * 		public
+ * 		home
+ * 		friends
+ * 		user
+ * 		mentions
+ * 		retweetsofme
+ * user/
+ * 		search users (DIRECT ONLY)
+ * 		user suggestions (DIRECT ONLY)
+ * trends/
+ * 		daily
+ * 		weekly
+ * userlist
+ * directmessage
+ * streaming/
+ * 		filter (POLLING ONLY)
+ * 		sample (POLLING ONLY)
+ * 
  * @author Brett E. Meyer (3RiverDev.com)
  */
 public class TwitterConsumerFactory {
@@ -25,49 +49,12 @@ public class TwitterConsumerFactory {
 
 	public static TwitterConsumerPolling getPollingConsumer(TwitterEndpoint endpoint,
 			Processor processor, String uri) throws IllegalArgumentException {
+		String[] uriSplit = splitUri(uri);
 		
-		/** URI STRUCTURE:
-		 * 
-		 * timeline/
-		 * 		public
-		 * 		home
-		 * 		friends
-		 * 		user
-		 * 		mentions
-		 * 		retweets/
-		 * 			others
-		 * 			you
-		 * 			yourtweets
-		 * user/
-		 * 		search users
-		 * 		user suggestions
-		 * trends
-		 * userlist
-		 * directmessage
-		 * geo/
-		 * 		search
-		 * 		reversegeocode
-		 * streaming/
-		 * 		filter
-		 * 		sample
-		 */
-		
-		Pattern p1 = Pattern.compile("twitter:(//)*");
-		Pattern p2 = Pattern.compile("\\?.*");
-
-		uri = p1.matcher(uri).replaceAll("");
-		uri = p2.matcher(uri).replaceAll("");
-		
-		String[] typeSplit = uri.split("/");
-		
-		if (typeSplit.length > 0) {
-			switch (ConsumerType.fromUri(typeSplit[0])) {
+		if (uriSplit.length > 0) {
+			switch (ConsumerType.fromUri(uriSplit[0])) {
 			case DIRECTMESSAGE:
-				// TODO
-				break;
-			case GEO:
-				// TODO
-				break;
+				return new PollingDirectMessageConsumer(endpoint, processor);
 			case SEARCH:
 				if (endpoint.getProperties().getKeywords() == null || endpoint.getProperties().getKeywords().trim().isEmpty()) {
 					throw new IllegalArgumentException(
@@ -76,7 +63,7 @@ public class TwitterConsumerFactory {
 					return new PollingSearchConsumer(endpoint, processor);
 				}
 			case STREAMING:
-				switch (StreamingType.fromUri(typeSplit[1])) {
+				switch (StreamingType.fromUri(uriSplit[1])) {
 				case SAMPLE:
 					return new PollingSampleConsumer(endpoint, processor);
 				case FILTER:
@@ -84,30 +71,16 @@ public class TwitterConsumerFactory {
 				}
 				break;
 			case TIMELINE:
-				if (typeSplit.length > 1) {
-					switch (TimelineType.fromUri(typeSplit[1])) {
+				if (uriSplit.length > 1) {
+					switch (TimelineType.fromUri(uriSplit[1])) {
 					case HOME:
 						return new PollingHomeConsumer(endpoint, processor);
 					case MENTIONS:
-						// TODO
-						break;
+						return new PollingMentionsConsumer(endpoint, processor);
 					case PUBLIC:
 						return new PollingPublicConsumer(endpoint, processor);
-					case RETWEETS:
-						if (typeSplit.length > 2) {
-							switch (RetweetTimelineType.fromUri(typeSplit[2])) {
-							case OTHERS:
-								// TODO
-								break;
-							case YOU:
-								// TODO
-								break;
-							case YOURTWEETS:
-								// TODO
-								break;
-							}
-						}
-						break;
+					case RETWEETSOFME:
+						return new PollingRetweetsConsumer(endpoint, processor);
 					case USER:
 						if (endpoint.getProperties().getUser() == null || endpoint.getProperties().getUser().trim().isEmpty()) {
 							throw new IllegalArgumentException(
@@ -119,7 +92,78 @@ public class TwitterConsumerFactory {
 				}
 				break;
 			case TRENDS:
+				if (uriSplit.length > 1) {
+					switch (TrendsType.fromUri(uriSplit[1])) {
+					case DAILY:
+						// TODO
+						break;
+					case WEEKLY:
+						// TODO
+						break;
+					}
+				}
+				break;
+			}
+		}
+		
+		LOG.warn("A consumer type was not provided (or an incorrect pairing was used).  Defaulting to Public Timeline!");
+		return new PollingPublicConsumer(endpoint, processor);
+	}
+	
+	public static TwitterConsumerDirect getDirectConsumer(TwitterEndpoint endpoint,
+			Processor processor, String uri) throws IllegalArgumentException {
+		String[] uriSplit = splitUri(uri);
+		
+		if (uriSplit.length > 0) {
+			switch (ConsumerType.fromUri(uriSplit[0])) {
+			case DIRECTMESSAGE:
 				// TODO
+				break;
+			case SEARCH:
+				if (endpoint.getProperties().getKeywords() == null || endpoint.getProperties().getKeywords().trim().isEmpty()) {
+					throw new IllegalArgumentException(
+							"Type set to SEARCH but no keywords were provided.");
+				} else {
+					// TODO
+					break;
+				}
+			case TIMELINE:
+				if (uriSplit.length > 1) {
+					switch (TimelineType.fromUri(uriSplit[1])) {
+					case HOME:
+						// TODO
+						break;
+					case MENTIONS:
+						// TODO
+						break;
+					case PUBLIC:
+						// TODO
+						break;
+					case RETWEETSOFME:
+						// TODO
+						break;
+					case USER:
+						if (endpoint.getProperties().getUser() == null || endpoint.getProperties().getUser().trim().isEmpty()) {
+							throw new IllegalArgumentException(
+									"Fetch type set to USER TIMELINE but no user was set.");
+						} else {
+							// TODO
+							break;
+						}
+					}
+				}
+				break;
+			case TRENDS:
+				if (uriSplit.length > 1) {
+					switch (TrendsType.fromUri(uriSplit[1])) {
+					case DAILY:
+						// TODO
+						break;
+					case WEEKLY:
+						// TODO
+						break;
+					}
+				}
 				break;
 			case USER:
 				// TODO
@@ -131,12 +175,18 @@ public class TwitterConsumerFactory {
 		}
 		
 		LOG.warn("A consumer type was not provided (or an incorrect pairing was used).  Defaulting to Public Timeline!");
-		return new PollingPublicConsumer(endpoint, processor);
-	}
-	
-	public static TwitterConsumerDirect getDirectConsumer(TwitterEndpoint endpoint,
-			Processor processor, String uri) throws IllegalArgumentException {
+//		return new PollingPublicConsumer(endpoint, processor);
 		// TODO
 		return null;
+	}
+	
+	private static String[] splitUri(String uri) {
+		Pattern p1 = Pattern.compile("twitter:(//)*");
+		Pattern p2 = Pattern.compile("\\?.*");
+
+		uri = p1.matcher(uri).replaceAll("");
+		uri = p2.matcher(uri).replaceAll("");
+		
+		return uri.split("/");
 	}
 }

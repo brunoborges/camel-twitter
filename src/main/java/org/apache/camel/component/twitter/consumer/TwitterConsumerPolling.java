@@ -62,10 +62,6 @@ public abstract class TwitterConsumerPolling extends ScheduledPollConsumer imple
 		return total;
 	}
 
-	protected final Status convertStatus(twitter4j.Status s) {
-		return new Status(s);
-	}
-
 	public long getLastStatusUpdateID() {
 		return lastStatusUpdateID;
 	}

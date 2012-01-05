@@ -2,6 +2,7 @@ package org.apache.camel.component.twitter.data;
 
 import java.util.Date;
 
+import twitter4j.DirectMessage;
 import twitter4j.Tweet;
 
 public class Status {
@@ -25,13 +26,19 @@ public class Status {
 		this.text = s.getText();
 		this.date = s.getCreatedAt();
 		this.truncated = s.isTruncated();
-		this.geoLocation = new GeoLocation(s.getGeoLocation());
 		this.inReplyToScreenName = s.getInReplyToScreenName();
 		this.inReplyToStatusId = s.getInReplyToStatusId();
 		this.inReplyToUserId = s.getInReplyToUserId();
 		this.retweetCount = s.getRetweetCount();
-		this.retweetedStatus = new Status(s.getRetweetedStatus());
 		this.source = s.getSource();
+		
+		if (s.getGeoLocation() != null) {
+			this.geoLocation = new GeoLocation(s.getGeoLocation());
+		}
+		
+		if (s.getRetweetedStatus() != null) {
+			this.retweetedStatus = new Status(s.getRetweetedStatus());
+		}
 	}
 	
 	public Status(Tweet s) {
@@ -39,8 +46,18 @@ public class Status {
 		this.id = s.getId();
 		this.text = s.getText();
 		this.date = s.getCreatedAt();
-		this.geoLocation = new GeoLocation(s.getGeoLocation());
 		this.source = s.getSource();
+
+		if (s.getGeoLocation() != null) {
+			this.geoLocation = new GeoLocation(s.getGeoLocation());
+		}
+	}
+	
+	public Status(DirectMessage dm) {
+		this.date = dm.getCreatedAt();
+		this.id = dm.getId();
+		this.user = new User(dm.getSender());
+		this.text = dm.getText();
 	}
 
 	public Date getDate() {
