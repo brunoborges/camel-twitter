@@ -20,7 +20,6 @@ import org.apache.camel.Consumer;
 import org.apache.camel.Processor;
 import org.apache.camel.Producer;
 import org.apache.camel.component.twitter.consumer.Twitter4JConsumer;
-import org.apache.camel.component.twitter.consumer.Twitter4JFactory;
 import org.apache.camel.component.twitter.consumer.TwitterConsumer;
 import org.apache.camel.component.twitter.consumer.TwitterConsumerPolling;
 import org.apache.camel.component.twitter.util.TwitterProperties;
@@ -55,8 +54,7 @@ public class TwitterEndpointPolling extends DefaultPollingEndpoint implements Tw
 	}
 
 	public Producer createProducer() throws Exception {
-//		return new TwitterProducer(this);
-		return null;
+		return Twitter4JFactory.getProducer(this, getEndpointUri());
 	}
 
 	public void initiate() {
