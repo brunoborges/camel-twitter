@@ -8,7 +8,6 @@ import org.apache.camel.Processor;
 import org.apache.camel.component.twitter.TwitterEndpoint;
 import org.apache.camel.component.twitter.consumer.TwitterConsumerPolling;
 import org.apache.camel.component.twitter.data.Status;
-import org.apache.camel.component.twitter.data.User;
 
 import twitter4j.Query;
 import twitter4j.QueryResult;
@@ -33,10 +32,7 @@ public class PollingSearchConsumer extends TwitterConsumerPolling {
 		List<Status> statusCamel = new ArrayList<Status>(tweets.size());
 		Iterator<Tweet> i = tweets.iterator();
 		while (i.hasNext()) {
-			Tweet tweet = i.next();
-			final String username = tweet.getFromUser();
-			statusCamel.add(new Status(new User(username), tweet.getId(),
-					tweet.getText(), tweet.getCreatedAt(), false));
+			statusCamel.add(new Status(i.next()));
 		}
 
 		return statusCamel.iterator();
