@@ -49,7 +49,6 @@ public class TwitterConsumerFactory {
 		 * 		reversegeocode
 		 * streaming/
 		 * 		filter
-		 * 		firehose
 		 * 		sample
 		 */
 		
@@ -78,9 +77,6 @@ public class TwitterConsumerFactory {
 				}
 			case STREAMING:
 				switch (StreamingType.fromUri(typeSplit[1])) {
-				case FIREHOSE:
-					// No way to test this -- no access.
-					break;
 				case SAMPLE:
 					return new PollingSampleConsumer(endpoint, processor);
 				case FILTER:

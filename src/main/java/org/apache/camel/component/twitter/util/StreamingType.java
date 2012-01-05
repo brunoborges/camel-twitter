@@ -5,7 +5,7 @@ package org.apache.camel.component.twitter.util;
  * @author Brett E. Meyer (3RiverDev.com)
  */
 public enum StreamingType {
-	FIREHOSE, SAMPLE, FILTER, UNKNOWN;
+	SAMPLE, FILTER, UNKNOWN;
 	
 	public static StreamingType fromUri(String uri) {
 		 for (StreamingType streamType : StreamingType.values()) {
