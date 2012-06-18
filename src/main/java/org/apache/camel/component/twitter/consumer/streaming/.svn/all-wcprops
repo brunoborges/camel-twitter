@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/repos/asf/!svn/ver/1305036/camel/trunk/components/camel-twitter/src/main/java/org/apache/camel/component/twitter/consumer/streaming
+END
+StreamingConsumer.java
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/repos/asf/!svn/ver/1305036/camel/trunk/components/camel-twitter/src/main/java/org/apache/camel/component/twitter/consumer/streaming/StreamingConsumer.java
+END
+SampleConsumer.java
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/repos/asf/!svn/ver/1235971/camel/trunk/components/camel-twitter/src/main/java/org/apache/camel/component/twitter/consumer/streaming/SampleConsumer.java
+END
+FilterConsumer.java
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/repos/asf/!svn/ver/1235971/camel/trunk/components/camel-twitter/src/main/java/org/apache/camel/component/twitter/consumer/streaming/FilterConsumer.java
+END

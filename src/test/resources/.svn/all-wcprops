@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/repos/asf/!svn/ver/1233162/camel/trunk/components/camel-twitter/src/test/resources
+END
+test-options.properties
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repos/asf/!svn/ver/1233162/camel/trunk/components/camel-twitter/src/test/resources/test-options.properties
+END
+log4j.properties
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/repos/asf/!svn/ver/1227999/camel/trunk/components/camel-twitter/src/test/resources/log4j.properties
+END

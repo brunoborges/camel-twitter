@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repos/asf/!svn/ver/1348725/camel/trunk/components/camel-twitter/src/main/java/org/apache/camel/component/twitter
+END
+TwitterEndpoint.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/repos/asf/!svn/ver/1229457/camel/trunk/components/camel-twitter/src/main/java/org/apache/camel/component/twitter/TwitterEndpoint.java
+END
+TwitterComponent.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/repos/asf/!svn/ver/1305013/camel/trunk/components/camel-twitter/src/main/java/org/apache/camel/component/twitter/TwitterComponent.java
+END
+TwitterEndpointEvent.java
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/repos/asf/!svn/ver/1235316/camel/trunk/components/camel-twitter/src/main/java/org/apache/camel/component/twitter/TwitterEndpointEvent.java
+END
+Twitter4JFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/repos/asf/!svn/ver/1305036/camel/trunk/components/camel-twitter/src/main/java/org/apache/camel/component/twitter/Twitter4JFactory.java
+END
+TwitterEndpointPolling.java
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/repos/asf/!svn/ver/1235971/camel/trunk/components/camel-twitter/src/main/java/org/apache/camel/component/twitter/TwitterEndpointPolling.java
+END
+TwitterConfiguration.java
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/repos/asf/!svn/ver/1235316/camel/trunk/components/camel-twitter/src/main/java/org/apache/camel/component/twitter/TwitterConfiguration.java
+END
+TwitterEndpointDirect.java
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/repos/asf/!svn/ver/1235971/camel/trunk/components/camel-twitter/src/main/java/org/apache/camel/component/twitter/TwitterEndpointDirect.java
+END

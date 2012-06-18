@@ -1,0 +1,22 @@
+K 10
+svn:ignore
+V 166
+.pmd
+.checkstyle
+.ruleset
+target
+.settings
+.classpath
+.project
+.wtpmodules
+prj.el
+.jdee_classpath
+.jdee_sources
+velocity.log
+eclipse-classes
+*.ipr
+*.iml
+*.iws
+*.idea
+
+END

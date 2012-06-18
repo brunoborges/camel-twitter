@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repos/asf/!svn/ver/1305036/camel/trunk/components/camel-twitter/src/main/java/org/apache/camel/component/twitter/consumer
+END
+Twitter4JConsumer.java
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/repos/asf/!svn/ver/1229472/camel/trunk/components/camel-twitter/src/main/java/org/apache/camel/component/twitter/consumer/Twitter4JConsumer.java
+END
+TwitterConsumer.java
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/repos/asf/!svn/ver/1227546/camel/trunk/components/camel-twitter/src/main/java/org/apache/camel/component/twitter/consumer/TwitterConsumer.java
+END
+TwitterConsumerEvent.java
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/repos/asf/!svn/ver/1305036/camel/trunk/components/camel-twitter/src/main/java/org/apache/camel/component/twitter/consumer/TwitterConsumerEvent.java
+END
+TwitterConsumerPolling.java
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/repos/asf/!svn/ver/1305036/camel/trunk/components/camel-twitter/src/main/java/org/apache/camel/component/twitter/consumer/TwitterConsumerPolling.java
+END
+TweeterStatusListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/repos/asf/!svn/ver/1305036/camel/trunk/components/camel-twitter/src/main/java/org/apache/camel/component/twitter/consumer/TweeterStatusListener.java
+END
+TwitterConsumerDirect.java
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/repos/asf/!svn/ver/1229472/camel/trunk/components/camel-twitter/src/main/java/org/apache/camel/component/twitter/consumer/TwitterConsumerDirect.java
+END
